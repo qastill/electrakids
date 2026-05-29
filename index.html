@@ -9864,9 +9864,9 @@ function choose(g){
   stage().innerHTML = `<div class="scene center"><div class="choices">`
     + g.options.map((o,i)=>`<button class="chip" data-i="${i}">${vis(o,46)}<span>${esc(o.label)}</span></button>`).join('')
     + `</div></div>`;
-  $$('#stage .chip').forEach(b=>b.onclick=()=>{
+  $$('#acadStage .chip').forEach(b=>b.onclick=()=>{
     const o=g.options[+b.dataset.i];
-    if(o.correct){ b.classList.add('right'); $$('#stage .chip').forEach(x=>{ if(x!==b)x.classList.add('dim'); x.onclick=null; }); sfxRight(); flashWhy(g.why); setTimeout(solve,1100); }
+    if(o.correct){ b.classList.add('right'); $$('#acadStage .chip').forEach(x=>{ if(x!==b)x.classList.add('dim'); x.onclick=null; }); sfxRight(); flashWhy(g.why); setTimeout(solve,1100); }
     else { b.classList.add('wrong'); sfxWrong(); setTimeout(()=>b.classList.remove('wrong'),460); }
   });
 }
@@ -9877,7 +9877,7 @@ function tapAll(g){
   stage().innerHTML = `<div class="scene"><div class="tapgrid">`
     + g.items.map((o,i)=>`<button class="tcell" data-i="${i}">${vis(o,40)}<span>${esc(o.label)}</span></button>`).join('')
     + `</div></div>`;
-  $$('#stage .tcell').forEach(b=>b.onclick=()=>{
+  $$('#acadStage .tcell').forEach(b=>b.onclick=()=>{
     const o=g.items[+b.dataset.i];
     if(b.classList.contains('right'))return;
     if(o.correct){ b.classList.add('right'); sfxTap(); found++; if(found>=need){ sfxRight(); flashWhy(g.why); setTimeout(solve,950);} }
@@ -9893,10 +9893,10 @@ function sort(g){
     + `</div><div class="binwrap">`
     + g.bins.map((bn,bi)=>`<div class="bin" data-b="${bi}"><div class="bt">${bn.e||''} ${esc(bn.label)}</div><div class="binitems"></div></div>`).join('')
     + `</div></div>`;
-  $$('#stage .sitem').forEach(b=>b.onclick=()=>{ if(b.classList.contains('placed'))return; $$('#stage .sitem').forEach(x=>x.classList.remove('pick')); b.classList.add('pick'); sel=+b.dataset.i; sfxTap(); });
-  $$('#stage .bin').forEach(bn=>bn.onclick=()=>{
+  $$('#acadStage .sitem').forEach(b=>b.onclick=()=>{ if(b.classList.contains('placed'))return; $$('#acadStage .sitem').forEach(x=>x.classList.remove('pick')); b.classList.add('pick'); sel=+b.dataset.i; sfxTap(); });
+  $$('#acadStage .bin').forEach(bn=>bn.onclick=()=>{
     if(sel==null){ toast('Pilih barang dulu ya!'); return; }
-    const o=g.items[sel], bi=+bn.dataset.b, sitem=$$('#stage .sitem')[sel];
+    const o=g.items[sel], bi=+bn.dataset.b, sitem=$$('#acadStage .sitem')[sel];
     if(o.bin===bi){ bn.querySelector('.binitems').insertAdjacentHTML('beforeend',`<span class="binitem">${o.e||''} ${esc(o.label)}</span>`); sitem.classList.add('placed'); sitem.classList.remove('pick'); bn.classList.add('flash'); setTimeout(()=>bn.classList.remove('flash'),420); sel=null; placed++; sfxRight(); if(placed>=total){ flashWhy(g.why); setTimeout(solve,900);} }
     else { bn.style.animation='shake .4s'; setTimeout(()=>bn.style.animation='',420); sfxWrong(); }
   });
@@ -9910,7 +9910,7 @@ function switches(g){
     stage().innerHTML = `<div class="scene center"><div class="bulbBox">${bulbSVG(on)}</div>
       <div class="switchrow">`+st.map((s,i)=>`<div class="sw ${s?'on':''}" data-i="${i}"><div class="toggle"><b></b></div><span>Saklar ${i+1}</span></div>`).join('')+`</div>
       <div style="font-family:var(--round);font-weight:800;font-size:17px;color:${on?'var(--go-d)':'#9aa7c2'}">${on?'Lampu MENYALA! 💡':'Lampu mati...'}</div></div>`;
-    $$('#stage .sw').forEach(el=>el.onclick=()=>{ st[+el.dataset.i]=!st[+el.dataset.i]; sfxTap(); if(lit()){ render(); sfxRight(); flashWhy(g.why); setTimeout(solve,1000);} else render(); });
+    $$('#acadStage .sw').forEach(el=>el.onclick=()=>{ st[+el.dataset.i]=!st[+el.dataset.i]; sfxTap(); if(lit()){ render(); sfxRight(); flashWhy(g.why); setTimeout(solve,1000);} else render(); });
   }
   render();
 }
@@ -9938,9 +9938,9 @@ function order(g){
   stage().innerHTML = `<div class="scene"><div class="steparea"><div class="slots">`
     + correct.map((s,i)=>`<div class="slot" data-i="${i}"><span class="badge">${i+1}</span><span class="txt">?</span></div>`).join('')
     + `</div><div class="stepchips">`+chips.map(o=>`<button class="stepchip" data-i="${o.i}">${esc(o.s)}</button>`).join('')+`</div></div></div>`;
-  $$('#stage .stepchip').forEach(b=>b.onclick=()=>{
+  $$('#acadStage .stepchip').forEach(b=>b.onclick=()=>{
     const idx=+b.dataset.i;
-    if(idx===next){ const slot=$$('#stage .slot')[next]; slot.classList.add('filled'); slot.querySelector('.txt').textContent=correct[next]; b.classList.add('used'); next++; sfxRight(); if(next>=correct.length){ flashWhy(g.why); setTimeout(solve,900);} }
+    if(idx===next){ const slot=$$('#acadStage .slot')[next]; slot.classList.add('filled'); slot.querySelector('.txt').textContent=correct[next]; b.classList.add('used'); next++; sfxRight(); if(next>=correct.length){ flashWhy(g.why); setTimeout(solve,900);} }
     else { b.style.animation='shake .4s'; setTimeout(()=>b.style.animation='',420); sfxWrong(); toast('Bukan langkah ini dulu 🤔'); }
   });
 }
@@ -9955,11 +9955,11 @@ function match(g){
     <div class="matchcol">`+left.map(o=>`<button class="mitem" data-side="L" data-i="${o.i}">${o.img?rimg(o.img,o.e,28):(o.e?`<span style="font-size:20px">${o.e}</span>`:'')} ${esc(o.label)}</button>`).join('')+`</div>
     <div class="matchcol">`+right.map(o=>`<button class="mitem" data-side="R" data-i="${o.i}">${o.e?`<span style="font-size:20px">${o.e}</span> `:''}${esc(o.label)}</button>`).join('')+`</div>
     </div></div>`;
-  $$('#stage .mitem').forEach(b=>b.onclick=()=>{
+  $$('#acadStage .mitem').forEach(b=>b.onclick=()=>{
     if(b.classList.contains('matched'))return;
-    if(b.dataset.side==='L'){ $$('#stage [data-side="L"]').forEach(x=>x.classList.remove('pick')); b.classList.add('pick'); sel=+b.dataset.i; sfxTap(); return; }
+    if(b.dataset.side==='L'){ $$('#acadStage [data-side="L"]').forEach(x=>x.classList.remove('pick')); b.classList.add('pick'); sel=+b.dataset.i; sfxTap(); return; }
     if(sel==null){ toast('Pilih kiri dulu ya!'); return; }
-    if(+b.dataset.i===sel){ const lb=$(`#stage [data-side="L"][data-i="${sel}"]`); lb.classList.add('matched'); lb.classList.remove('pick'); b.classList.add('matched'); matched++; sfxRight(); sel=null; if(matched>=g.pairs.length){ flashWhy(g.why); setTimeout(solve,800);} }
+    if(+b.dataset.i===sel){ const lb=$(`#acadStage [data-side="L"][data-i="${sel}"]`); lb.classList.add('matched'); lb.classList.remove('pick'); b.classList.add('matched'); matched++; sfxRight(); sel=null; if(matched>=g.pairs.length){ flashWhy(g.why); setTimeout(solve,800);} }
     else { b.classList.add('miss'); sfxWrong(); setTimeout(()=>b.classList.remove('miss'),460); }
   });
 }
@@ -9972,7 +9972,7 @@ function memory(g){
   stage().innerHTML = `<div class="scene center"><div class="memgrid" style="grid-template-columns:repeat(${cols},minmax(0,68px))">`
     + cards.map((c,i)=>`<div class="memcard" data-i="${i}" data-p="${c.pid}"><span class="back">❓</span><span class="face">${c.img?rimg(c.img,c.e,58):`<span style="font-size:32px">${c.e}</span>`}</span></div>`).join('')
     + `</div><div style="font-family:var(--round);font-weight:800;margin-top:10px;color:#5a6b8c">Pasangan: <b id="mc">0</b>/${g.pairs.length}</div></div>`;
-  $$('#stage .memcard').forEach(el=>el.onclick=()=>{
+  $$('#acadStage .memcard').forEach(el=>el.onclick=()=>{
     if(lock||el.classList.contains('flip')||el.classList.contains('done'))return;
     el.classList.add('flip'); sfxTap(); open.push(el);
     if(open.length===2){ lock=true; const [a,b]=open;
@@ -10014,7 +10014,7 @@ function rotate(g){
     stage().innerHTML = `<div class="scene center"><div class="rgrid" style="grid-template-columns:repeat(${C},62px)">`
       + tiles.map((t,i)=>`<div class="rtile ${t.rotatable?'':'fixed'} ${live[i]&&t.type==='straight'?'live':''}" data-i="${i}">${tileSVG(t,curMask(t),live[i])}</div>`).join('')
       + `</div><div style="font-family:var(--round);font-weight:800;font-size:16px;margin-top:12px;color:${win?'var(--go-d)':'#9aa7c2'}">${win?'Tersambung! ⚡':'Putar kabel (ketuk) untuk menyambung...'}</div></div>`;
-    $$('#stage .rtile').forEach(el=>{ const i=+el.dataset.i; if(tiles[i].rotatable) el.onclick=()=>{ tiles[i].rot=(tiles[i].rot+1)%4; sfxTap(); if(compute().win){ render(); sfxRight(); flashWhy(g.why); setTimeout(solve,1150);} else render(); }; });
+    $$('#acadStage .rtile').forEach(el=>{ const i=+el.dataset.i; if(tiles[i].rotatable) el.onclick=()=>{ tiles[i].rot=(tiles[i].rot+1)%4; sfxTap(); if(compute().win){ render(); sfxRight(); flashWhy(g.why); setTimeout(solve,1150);} else render(); }; });
   }
   render();
 }
@@ -10030,7 +10030,7 @@ function logicmap(g){
       + lamps.map((v,i)=>`<div style="text-align:center"><div style="font-size:42px;filter:${v?'none':'grayscale(1) opacity(.35)'}">💡</div><div style="font-family:var(--round);font-weight:800;font-size:11px;color:${g.target[i]?'var(--go-d)':'#9aa7c2'}">${g.target[i]?'NYALA':'mati'}</div></div>`).join('')
       + `</div><div class="switchrow">`+sw.map((s,i)=>`<div class="sw ${s?'on':''}" data-i="${i}"><div class="toggle"><b></b></div><span>Saklar ${i+1}</span></div>`).join('')+`</div>
       <div style="font-family:var(--round);font-weight:800;font-size:16px;color:${w?'var(--go-d)':'#9aa7c2'}">${w?'Pas semua! 🎉':'Cocokkan lampu dengan target...'}</div></div>`;
-    $$('#stage .sw').forEach(el=>el.onclick=()=>{ sw[+el.dataset.i]=!sw[+el.dataset.i]; sfxTap(); if(won()){ render(); sfxRight(); flashWhy(g.why); setTimeout(solve,1150);} else render(); });
+    $$('#acadStage .sw').forEach(el=>el.onclick=()=>{ sw[+el.dataset.i]=!sw[+el.dataset.i]; sfxTap(); if(won()){ render(); sfxRight(); flashWhy(g.why); setTimeout(solve,1150);} else render(); });
   }
   render();
 }
@@ -10061,7 +10061,7 @@ function mountGame(g){ cur.solved=false; $('#whyCard').classList.remove('on'); (
   function renderMap(){
     const c=career(curCareer);
     $('#acadMapEmblem').innerHTML=(ICON.career[c.id]||ICON.career.power)(46);
-    $('#acadMapName').textContent=c.name;
+    $('#acadMapName').innerHTML=esc(c.name)+'<small id="acadMapSub"></small>';
     $('#acadMapSub').textContent=careerDoneCount(c.id)+'/'+careerTotal(c.id)+' game • '+c.levels.length+' tingkatan: TK → Junior';
     $('#acadLvls').innerHTML = c.levels.map((lv,l)=>{
       const dn=levelDoneCount(c.id,l), tot=lv.games.length, unl=levelUnlocked(c.id,l), comp=levelComplete(c.id,l);
