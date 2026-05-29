@@ -194,7 +194,7 @@
         <div class="art" id="artAcad"></div>
         <div class="info">
           <h3>Engineering Kids</h3>
-          <p>Pilih 8 jalur insinyur, naik 4 tingkatan (TK→Junior), taklukkan 320 game!</p>
+          <p>Pilih 8 jalur insinyur, naik 4 tingkatan (SD→Junior), taklukkan 320 game!</p>
           <span class="pill">Belajar Bertingkat</span>
         </div>
         <span class="go">Mulai ➡</span>
@@ -428,6 +428,105 @@
   border-radius:16px;padding:12px;margin-top:14px;font-family:var(--round);font-weight:700;font-size:15px}
 .lesson.why{background:#eafff1;border-color:var(--go-d)}
 .lesson .li{font-size:22px;flex:0 0 auto}
+
+/* =========================================================================
+   BIGGER & MORE COLORFUL  (overrides — larger type + vivid backgrounds)
+   ========================================================================= */
+/* page background: brighter, playful */
+body{background:
+  radial-gradient(120% 90% at 50% -10%, #ffe9a8 0%, #bdf0ff 38%, #b6e3ff 62%, #c8f7d8 100%) fixed;}
+
+/* headers & titles bigger */
+.acad-head .ttl{font-size:24px}
+.acad-head .ttl small{font-size:13px}
+
+/* CAREER CARDS — colorful gradient per card (set inline via JS .grad too) */
+.career-grid{gap:14px}
+.ccard{padding:15px 12px;border-width:4px;border-radius:24px;background:linear-gradient(150deg,#fff,#eef6ff)}
+.ccard .cart{width:84px;height:84px}
+.ccard h3{font-size:17px}
+.ccard .cnt{font-size:13px}
+.ccard .cbar{height:12px}
+.ccard .crown{font-size:26px}
+
+/* TIER (level) cards — vivid, bigger text */
+.lvl-card{padding:14px 15px;border-width:4px;border-radius:22px}
+.lvl-card .lnum{width:50px;height:50px;font-size:22px;border-radius:16px}
+.lvl-card .lmeta h4{font-size:20px}
+.lvl-card .lmeta p{font-size:14px}
+.lvl-card .lstars{font-size:17px}
+.lvl-card .llock{font-size:24px}
+
+/* GAME TILES — colorful, much bigger labels */
+.game-grid{gap:12px}
+.gtile2{min-height:120px;border-width:3.5px;border-radius:20px;padding:12px 7px;gap:7px;
+  background:linear-gradient(160deg,#fffef7,#eaf4ff)}
+.gtile2 .gno{width:38px;height:38px;font-size:19px}
+.gtile2 .gtype{font-size:28px}
+.gtile2 .gnm{font-size:13px;font-weight:700}
+.gtile2.done{background:linear-gradient(160deg,#e7fff0,#c9f7dd)}
+
+/* PLAY header bigger */
+#acad-play .play-head{padding:12px 13px;border-width:3px}
+#acad-play .play-head .pv{width:40px;height:40px}
+#acad-play .play-head .pt h3{font-size:19px}
+#acad-play .play-head .pt p{font-size:15px}
+
+/* STAGE — colorful playground */
+.acad-stagewrap{background:linear-gradient(160deg,#fff7e6,#e6f3ff);border-color:#ffffff}
+
+/* CHOICES / TAP CELLS — bigger type & icons, colorful tiles */
+.chip{font-size:19px;padding:15px;min-width:130px;border-width:4px;border-radius:22px;
+  background:linear-gradient(160deg,#ffffff,#fff3d6)}
+.chip .em{font-size:42px}
+.tok{background:linear-gradient(135deg,#e9f7ff,#ffe7c4)!important;border-color:#ffd59a!important}
+.tapgrid{gap:13px}
+.tcell{font-size:15px;padding:12px;border-width:4px;border-radius:20px;
+  background:linear-gradient(160deg,#ffffff,#e9f3ff)}
+.tcell .em{font-size:36px}
+
+/* SORT */
+.bin{border-width:4px}
+.bin .bt{font-size:18px}
+.sitem{font-size:16px;border-width:3.5px}
+.sitem .em{font-size:28px}
+.binitem{font-size:15px}
+
+/* SWITCHES / LOGICMAP labels */
+.sw span{font-size:15px}
+.sw{border-width:4px}
+
+/* SLIDER */
+.target-pill{font-size:19px}
+.gauge{font-size:20px}
+
+/* ORDER steps */
+.slot{font-size:16px;min-height:58px}
+.slot .badge{width:32px;height:32px;font-size:16px}
+.stepchip{font-size:16px;border-width:3.5px}
+
+/* MATCH */
+.mitem{font-size:16px;min-height:54px;border-width:3.5px}
+
+/* MEMORY */
+.memcard{font-size:34px}
+.memcard .label{font-size:12px}
+
+/* feedback cards bigger */
+.whycard{font-size:17px}
+.lesson{font-size:17px}
+.acad-hintbar .btn{font-size:17px;padding:14px}
+
+/* WIN/DONE overlay cards bigger */
+.card h2{font-size:30px}
+.card .fact{font-size:15px}
+.card .bigstars{font-size:38px}
+.card .btn{font-size:20px}
+
+/* MENU cards (home menu) a touch bigger too */
+.gcard .info h3{font-size:24px}
+.gcard .info p{font-size:15px}
+.gcard .pill{font-size:12.5px}
 
 </style>
 
@@ -888,9 +987,9 @@ const CAREERS = [
   "certTitle": "INSINYUR LISTRIK",
   "levels": [
    {
-    "name": "TK",
-    "emoji": "🐣",
-    "tag": "Usia 4-6 • Mengenal",
+    "name": "SD",
+    "emoji": "🎒",
+    "tag": "Kelas 1-2 SD • Mengenal",
     "games": [
      {
       "t": "choose",
@@ -2008,9 +2107,9 @@ const CAREERS = [
   "certTitle": "INSINYUR ELEKTRONIKA",
   "levels": [
    {
-    "name": "TK",
-    "emoji": "🐣",
-    "tag": "Usia 4-6 • Mengenal",
+    "name": "SD",
+    "emoji": "🎒",
+    "tag": "Kelas 1-2 SD • Mengenal",
     "games": [
      {
       "t": "choose",
@@ -3132,9 +3231,9 @@ const CAREERS = [
   "certTitle": "INSINYUR ROBOTIKA",
   "levels": [
    {
-    "name": "TK",
-    "emoji": "🐣",
-    "tag": "Usia 4-6 • Mengenal",
+    "name": "SD",
+    "emoji": "🎒",
+    "tag": "Kelas 1-2 SD • Mengenal",
     "games": [
      {
       "t": "choose",
@@ -4267,9 +4366,9 @@ const CAREERS = [
   "certTitle": "INSINYUR ENERGI HIJAU",
   "levels": [
    {
-    "name": "TK",
-    "emoji": "🐣",
-    "tag": "Usia 4-6 • Mengenal",
+    "name": "SD",
+    "emoji": "🎒",
+    "tag": "Kelas 1-2 SD • Mengenal",
     "games": [
      {
       "t": "choose",
@@ -5382,9 +5481,9 @@ const CAREERS = [
   "certTitle": "INSINYUR TELEKOMUNIKASI",
   "levels": [
    {
-    "name": "TK",
-    "emoji": "🐣",
-    "tag": "Usia 4-6 • Mengenal",
+    "name": "SD",
+    "emoji": "🎒",
+    "tag": "Kelas 1-2 SD • Mengenal",
     "games": [
      {
       "t": "choose",
@@ -6498,9 +6597,9 @@ const CAREERS = [
   "certTitle": "INSINYUR MESIN",
   "levels": [
    {
-    "name": "TK",
-    "emoji": "🐣",
-    "tag": "Usia 4-6 • Mengenal",
+    "name": "SD",
+    "emoji": "🎒",
+    "tag": "Kelas 1-2 SD • Mengenal",
     "games": [
      {
       "t": "choose",
@@ -7616,9 +7715,9 @@ const CAREERS = [
   "certTitle": "INSINYUR SIPIL",
   "levels": [
    {
-    "name": "TK",
-    "emoji": "🐣",
-    "tag": "Usia 4-6 • Mengenal",
+    "name": "SD",
+    "emoji": "🎒",
+    "tag": "Kelas 1-2 SD • Mengenal",
     "games": [
      {
       "t": "choose",
@@ -8736,9 +8835,9 @@ const CAREERS = [
   "certTitle": "INSINYUR PERANGKAT LUNAK",
   "levels": [
    {
-    "name": "TK",
-    "emoji": "🐣",
-    "tag": "Usia 4-6 • Mengenal",
+    "name": "SD",
+    "emoji": "🎒",
+    "tag": "Kelas 1-2 SD • Mengenal",
     "games": [
      {
       "t": "choose",
@@ -10047,12 +10146,12 @@ function mountGame(g){ cur.solved=false; $('#whyCard').classList.remove('on'); (
     $('#acadCareers').innerHTML = CAREERS.map(c=>{
       const dn=careerDoneCount(c.id), tot=careerTotal(c.id), pct=Math.round(dn/tot*100), comp=careerComplete(c.id);
       const emblem=(ICON.career[c.id]||ICON.career.power)(74);
-      return `<div class="ccard ${comp?'done':''}" data-c="${c.id}">
+      return `<div class="ccard ${comp?'done':''}" data-c="${c.id}" style="background:${c.grad};border-color:var(--ink)">
         <span class="crown">👑</span>
-        <span class="cart">${emblem}</span>
-        <h3>${esc(c.name)}</h3>
-        <div class="cbar"><i style="width:${pct}%"></i></div>
-        <span class="cnt">${dn}/${tot} game${comp?' • Lulus!':''}</span></div>`;
+        <span class="cart" style="background:#ffffffe6;border-radius:20px;padding:5px;box-shadow:0 3px 0 rgba(0,0,0,.12)">${emblem}</span>
+        <h3 style="color:#fff;text-shadow:0 2px 3px rgba(0,0,0,.28)">${esc(c.name)}</h3>
+        <div class="cbar" style="background:#ffffff55"><i style="width:${pct}%;background:#fff"></i></div>
+        <span class="cnt" style="color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.25)">${dn}/${tot} game${comp?' • Lulus!':''}</span></div>`;
     }).join('');
     $$('#acadCareers .ccard').forEach(el=>el.onclick=()=>{ beep(600,0.08); chooseCareer(el.dataset.c); });
   }
@@ -10062,11 +10161,12 @@ function mountGame(g){ cur.solved=false; $('#whyCard').classList.remove('on'); (
     const c=career(curCareer);
     $('#acadMapEmblem').innerHTML=(ICON.career[c.id]||ICON.career.power)(46);
     $('#acadMapName').innerHTML=esc(c.name)+'<small id="acadMapSub"></small>';
-    $('#acadMapSub').textContent=careerDoneCount(c.id)+'/'+careerTotal(c.id)+' game • '+c.levels.length+' tingkatan: TK → Junior';
+    $('#acadMapSub').textContent=careerDoneCount(c.id)+'/'+careerTotal(c.id)+' game • '+c.levels.length+' tingkatan: SD → Junior';
     $('#acadLvls').innerHTML = c.levels.map((lv,l)=>{
       const dn=levelDoneCount(c.id,l), tot=lv.games.length, unl=levelUnlocked(c.id,l), comp=levelComplete(c.id,l);
       const col=c.color;
-      return `<div class="lvl-card ${unl?'':'locked'}" data-l="${l}">
+      const tierTint=['linear-gradient(150deg,#eafff1,#c9f7dd)','linear-gradient(150deg,#e6f4ff,#c4e6ff)','linear-gradient(150deg,#f3ebff,#e0ccff)','linear-gradient(150deg,#fff1e0,#ffd9b0)'][l]||'#fff';
+      return `<div class="lvl-card ${unl?'':'locked'}" data-l="${l}" style="background:${unl?tierTint:'#eef2f7'}">
         <span class="lnum" style="background:${comp?'var(--gold)':col};color:${comp?'var(--ink)':'#fff'}">${comp?'✓':(l+1)}</span>
         <div class="lmeta"><h4>${esc(lv.name)}</h4><p>${esc(lv.tag)} • ${tot} game</p>
           <div class="lbar"><i style="width:${Math.round(dn/tot*100)}%"></i></div></div>
@@ -10084,7 +10184,7 @@ function mountGame(g){ cur.solved=false; $('#whyCard').classList.remove('on'); (
   function renderGrid(l){ const c=career(curCareer), lv=c.levels[l];
     $('#acadGames').innerHTML = lv.games.map((g,gi)=>{ const dn=isDone(c.id,l,gi), unl=gameUnlocked(c.id,l,gi);
       if(!unl) return `<div class="gtile2 locked"><span class="gno" style="background:#9fb3c9">${gi+1}</span><span class="gnm">🔒</span></div>`;
-      return `<div class="gtile2 ${dn?'done':''}" data-g="${gi}"><span class="gno" style="background:${dn?'var(--go-d)':c.color}">${dn?'✓':(gi+1)}</span><span class="gtype">${TYPE_GLYPH[g.t]||'🎮'}</span><span class="gnm">${esc(g.title)}</span></div>`;
+      return `<div class="gtile2 ${dn?'done':''}" data-g="${gi}" style="border-color:${dn?'var(--go-d)':c.color}"><span class="gno" style="background:${dn?'var(--go-d)':c.color}">${dn?'✓':(gi+1)}</span><span class="gtype">${TYPE_GLYPH[g.t]||'🎮'}</span><span class="gnm">${esc(g.title)}</span></div>`;
     }).join('');
     $$('#acadGames .gtile2').forEach(el=>{ if(el.dataset.g!=null) el.onclick=()=>{ beep(600,0.08); openGame(l,+el.dataset.g); }; });
   }
@@ -10111,7 +10211,7 @@ function mountGame(g){ cur.solved=false; $('#whyCard').classList.remove('on'); (
     if(nx>=0 && gameUnlocked(c.id,cur.l,nx)) openGame(cur.l,nx); else show('acad-level'); }
   function showLevelDone(l){ const c=career(curCareer), lv=c.levels[l];
     if(careerComplete(c.id)){ $('#acadDoneTitle').textContent='Selamat, kamu jadi '+c.name+'! 🎓';
-      $('#acadDoneMsg').innerHTML='Kamu menamatkan SEMUA '+c.levels.length+' tingkatan (TK → Junior)! Hebat sekali. ⚡'; $('#acadDoneNext').textContent='🏅 Kembali ke Karir'; }
+      $('#acadDoneMsg').innerHTML='Kamu menamatkan SEMUA '+c.levels.length+' tingkatan (SD → Junior)! Hebat sekali. ⚡'; $('#acadDoneNext').textContent='🏅 Kembali ke Karir'; }
     else { $('#acadDoneTitle').textContent='Tingkatan Selesai! 🎉';
       $('#acadDoneMsg').innerHTML='Tingkatan <b>'+esc(lv.name)+'</b> beres! Tingkatan berikutnya terbuka.'; $('#acadDoneNext').textContent='Lanjut ➡'; }
     sfxWin(); $('#acadDone').classList.add('on'); }
