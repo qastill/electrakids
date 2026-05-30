@@ -449,6 +449,21 @@ body{background:
 .ccard .cbar{height:12px}
 .ccard .crown{font-size:26px}
 
+/* DIGITAL SIMULATOR LAB button + overlay */
+.lab-btn{width:100%;display:flex;flex-direction:column;align-items:flex-start;gap:3px;border:3px solid var(--ink);border-radius:22px;
+  background:linear-gradient(135deg,#173a5e,#0e8c83 70%,#16c2b3);color:#fff;font-family:var(--disp);font-weight:700;font-size:18px;
+  padding:15px 17px;margin-bottom:14px;box-shadow:0 6px 0 rgba(11,15,23,.45);cursor:pointer;text-align:left;position:relative;overflow:hidden}
+.lab-btn::after{content:"🔬";position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:30px;opacity:.85}
+.lab-btn small{font-family:var(--body);font-weight:700;font-size:12.5px;color:#cfeee9;padding-right:40px}
+.lab-btn:active{transform:translateY(4px);box-shadow:0 2px 0 rgba(11,15,23,.45)}
+.sim-ov{position:fixed;inset:0;z-index:300;background:#0b0f17;display:none;flex-direction:column}
+.sim-ov.on{display:flex;animation:fadein .25s}
+.sim-ov-bar{display:flex;align-items:center;gap:10px;padding:10px 14px;background:#10151f;border-bottom:1px solid #26344a;flex-shrink:0}
+.sim-ov-ttl{font-family:var(--disp);font-weight:700;color:#e8b339;font-size:16px;flex:1;line-height:1.15}
+.sim-ov-close{font-family:var(--disp);font-weight:700;background:#1a2433;color:#e7edf6;border:1px solid #33445f;border-radius:11px;padding:9px 15px;font-size:14px;cursor:pointer}
+.sim-ov-close:active{transform:translateY(2px)}
+.sim-ov iframe{flex:1;width:100%;border:none;background:#0b0f17}
+
 /* TIER (level) cards — vivid, bigger text */
 .lvl-card{padding:14px 15px;border-width:4px;border-radius:22px}
 .lvl-card .lnum{width:50px;height:50px;font-size:22px;border-radius:16px}
@@ -546,7 +561,7 @@ body{background:
       <span id="acadMapEmblem" style="width:46px;height:46px;flex-shrink:0"></span>
       <div class="ttl" id="acadMapName">Karir<small id="acadMapSub"></small></div>
     </div>
-    <div class="acad-scroll"><div class="lvl-list" id="acadLvls"></div></div>
+    <div class="acad-scroll"><div id="acadLab"></div><div class="lvl-list" id="acadLvls"></div></div>
   </section>
 
   <!-- ============ ACADEMY: GAME GRID ============ -->
@@ -611,6 +626,15 @@ body{background:
     </div>
   </div>
   <div class="toast" id="toast"></div>
+</div>
+
+<!-- ============ DIGITAL SIMULATOR LAB (iframe overlay) ============ -->
+<div class="sim-ov" id="simOverlay">
+  <div class="sim-ov-bar">
+    <span class="sim-ov-ttl" id="simOvTitle">🔬 Lab Simulator</span>
+    <button class="sim-ov-close" id="simOvClose">✕ Tutup</button>
+  </div>
+  <iframe id="simFrame" title="Lab Simulator Digital"></iframe>
 </div>
 
 <script>
@@ -10157,11 +10181,31 @@ function mountGame(g){ cur.solved=false; $('#whyCard').classList.remove('on'); (
   }
   function chooseCareer(id){ curCareer=id; renderMap(); show('acad-map'); }
 
+  /* ---- Digital Simulator Lab (per-career, opens simulator.html in overlay iframe) ---- */
+  const SIM_CAREERS={
+    power:'Distribusi · Transmisi · Pembangkit · K3 · Sales',
+    green:'PV Surya · Karbon · EV · Audit · Sampah · Hidrogen',
+    elec:'Baterai & BESS',
+    robot:'PLC & Otomasi',
+    mech:'Motor & Starter Industri',
+    civil:'Instalasi & Wiring Bangunan',
+    code:'Data Science Energi'
+  };
+  function openSim(careerId,careerName){
+    $('#simOvTitle').textContent='🔬 Lab Simulator · '+careerName;
+    $('#simFrame').src='simulator.html#career='+careerId;
+    $('#simOverlay').classList.add('on');
+  }
+  function closeSim(){ $('#simOverlay').classList.remove('on'); $('#simFrame').src='about:blank'; }
+
   function renderMap(){
     const c=career(curCareer);
     $('#acadMapEmblem').innerHTML=(ICON.career[c.id]||ICON.career.power)(46);
     $('#acadMapName').innerHTML=esc(c.name)+'<small id="acadMapSub"></small>';
     $('#acadMapSub').textContent=careerDoneCount(c.id)+'/'+careerTotal(c.id)+' game • '+c.levels.length+' tingkatan: SD → Junior';
+    const lab=SIM_CAREERS[c.id];
+    $('#acadLab').innerHTML = lab ? `<button class="lab-btn" id="acadLabBtn">Lab Simulator Digital<small>${esc(lab)} — simulasi nyata: rangkai, atur, & lihat hasilnya langsung</small></button>` : '';
+    if(lab) $('#acadLabBtn').onclick=()=>{ beep(620,0.09); openSim(c.id,c.name); };
     $('#acadLvls').innerHTML = c.levels.map((lv,l)=>{
       const dn=levelDoneCount(c.id,l), tot=lv.games.length, unl=levelUnlocked(c.id,l), comp=levelComplete(c.id,l);
       const col=c.color;
@@ -10227,6 +10271,7 @@ function mountGame(g){ cur.solved=false; $('#whyCard').classList.remove('on'); (
     $('#acadPlayBack').onclick=()=>{ beep(420,0.08); exitToLevel(); };
     $('#acadHint').onclick=showHint;
     $('#acadVoltFace').onclick=showHint;
+    $('#simOvClose').onclick=()=>{ beep(420,0.08); closeSim(); };
     $('#acadWinNext').onclick=nextAfterWin;
     $('#acadDoneNext').onclick=afterLevelDone;
     $('#acadVoltFace').innerHTML=ICON.volt(30);
